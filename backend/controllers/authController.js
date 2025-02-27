@@ -6,7 +6,7 @@ const generateToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "1h" });
 };
 
-// Registrasi pengguna baru
+// Registrasi Pengguna
 const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -66,11 +66,22 @@ const loginUser = async (req, res) => {
         token: generateToken(user._id), // Kirim token JWT
       });
     } else {
-      return res.status(401).json ({message:"Email atau password salah"})
+      return res.status(401).json({ message: "Email atau password salah" });
     }
   } catch (error) {
-    return res.status(500).json({message: "Terjadi kesalahan server", error: error.message})
+    return res
+      .status(500)
+      .json({ message: "Terjadi kesalahan server", error: error.message });
   }
 };
 
-module.exports = { registerUser, loginUser };
+// Logout Pengguna
+const logoutUser = async (req, res) => {
+  try {
+    return res.status(200).json({ message: "Logout berhasil" });
+  } catch (error) {
+    return res.status(500).json({ message: "Terjadi kesalahan server" });
+  }
+};
+
+module.exports = { registerUser, loginUser,logoutUser };
