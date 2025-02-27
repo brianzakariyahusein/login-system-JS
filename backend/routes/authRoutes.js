@@ -11,7 +11,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 
 // Route Logout pengguna
-router.post("/logout", protect, logoutUser)
+router.post("/logout", logoutUser)
 
 // Route proteksi contoh (Dashboard)
 router.get("/dashboard", protect, (req, res) => {
