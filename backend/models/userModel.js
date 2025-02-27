@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 
 // Definisi skema pengguna
 const userSchema = new mongoose.Schema(
@@ -24,8 +25,10 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
   },
-  { timeStamps: true } // Menambahkan createAt & updatedAt
+  { timestamps: true } // Menambahkan createAt & updatedAt
 );
 
 // Hash password sebelum menyimpan ke database
@@ -41,7 +44,20 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// Buat model berdasarkan skema
-const User = mongoose.model("User", userSchema)
+// Fungsi untuk membuat token reset password
+userSchema.methods.generateResetToken = function () {
+  const resetToken = crypto.randomBytes(32).toString("hex");
 
-module.exports = User
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+  this.resetPasswordExpire = Date.now() + 10 * 60 * 1000; // Berlaku 10 menit
+
+  return resetToken;
+};
+
+// Buat model berdasarkan skema
+const User = mongoose.model("User", userSchema);
+
+module.exports = User;
