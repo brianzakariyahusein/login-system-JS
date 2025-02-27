@@ -43,4 +43,34 @@ const registerUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser };
+// Login Pengguna
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Periksa apakah email dan password diisi
+    if (!email || !password) {
+      return rs.status(400).json({ message: "Harap isi email dan password" });
+    }
+
+    // Cari user berdasarkan email
+    const user = await User.findOne({ email });
+
+    // Periksa apakah user ditemukan dan password cocok
+    if (user && (await user.matchPassword(password))) {
+      return res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        token: generateToken(user._id), // Kirim token JWT
+      });
+    } else {
+      return res.status(401).json ({message:"Email atau password salah"})
+    }
+  } catch (error) {
+    return res.status(500).json({message: "Terjadi kesalahan server", error: error.message})
+  }
+};
+
+module.exports = { registerUser, loginUser };
