@@ -1,5 +1,5 @@
 const express = require("express");
-const { registerUser, loginUser, logoutUser } = require("../controllers/authController");
+const { registerUser, loginUser, logoutUser, forgotPassword, resetPassword } = require("../controllers/authController");
 const { protect } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
@@ -12,6 +12,12 @@ router.post("/login", loginUser);
 
 // Route Logout pengguna
 router.post("/logout", logoutUser)
+
+// Route Logout pengguna
+router.post("/forgot-password", forgotPassword)
+
+// Route Reset Password pengguna
+router.post ("/reset-password/:token", resetPassword)
 
 // Route proteksi contoh (Dashboard)
 router.get("/dashboard", protect, (req, res) => {
