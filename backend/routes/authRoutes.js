@@ -13,7 +13,7 @@ router.post("/login", loginUser);
 // Route Logout pengguna
 router.post("/logout", logoutUser)
 
-// Route Logout pengguna
+// Route Forgot Password
 router.post("/forgot-password", forgotPassword)
 
 // Route Reset Password pengguna

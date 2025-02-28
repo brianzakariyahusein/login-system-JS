@@ -127,7 +127,7 @@ const resetPassword = async (req, res) => {
     const { password } = req.body;
 
     // Hash token yang diterima agar bisa dibandingkan dengan yang di database
-    const hashedToken = crypto.createHash("sha256").update(token).figest("hex");
+    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
 
     // Cari user berdasarkan token dan cek apakah token masih berlaku
     const user = await User.findOne({

@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 
+const hash = crypto.createHash("sha256").update("test").digest("hex");
+console.log(hash);
+
 // Definisi skema pengguna
 const userSchema = new mongoose.Schema(
   {
@@ -51,11 +54,13 @@ userSchema.methods.generateResetToken = function () {
   this.resetPasswordToken = crypto
     .createHash("sha256")
     .update(resetToken)
-    .digest("hex");
+    .digest("hex"); // Pastikan ini tidak typo!
+
   this.resetPasswordExpire = Date.now() + 10 * 60 * 1000; // Berlaku 10 menit
 
   return resetToken;
 };
+
 
 // Buat model berdasarkan skema
 const User = mongoose.model("User", userSchema);
