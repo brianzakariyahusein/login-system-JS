@@ -15,39 +15,19 @@ Sistem login ini dibuat menggunakan **Node.js**, **Express**, dan **MongoDB**, s
 
 ## 🚀 Instalasi & Konfigurasi
 
-### 1. Buat Folder Proyek
-```sh
-mkdir login-system-JS
+### 1. Clone Repository
+```bash
+git clone https://github.com/brianzakariyahusein/login-system-JS.git
 cd login-system-JS
 ```
 
-### 2. Inisialisasi Proyek Node.js
-```sh
-npm init -y
+### 2. Install Dependencies
+```bash
+npm install
 ```
 
-### 3. Install Dependencies
-```sh
-npm install express mongoose dotenv bcrypt jsonwebtoken cors morgan nodemailer
-```
-
-### 4. Install Dependencies untuk Development
-```sh
-npm install --save-dev nodemon
-```
-
-### 5. Buat Struktur Folder
-```sh
-mkdir backend
-cd backend
-mkdir controllers middlewares models routes utils
-touch server.js .env
-cd ..
-mkdir frontend  # (akan dikembangkan nanti)
-```
-
-### 6. Konfigurasi Environment Variables
-Buka file `.env` dan tambahkan konfigurasi berikut:
+### 3. Konfigurasi Environment Variables
+Buat file `.env` di root folder, lalu tambahkan konfigurasi berikut:
 
 ```
 PORT=5000
@@ -59,12 +39,26 @@ EMAIL_PASS=your_email_password
 
 Pastikan mengganti `your_jwt_secret`, `your_email@gmail.com`, dan `your_email_password` dengan kredensial yang benar.
 
-### 7. Menjalankan Server
-```sh
+### **Cara Mendapatkan EMAIL_PASS (Gmail)**
+Gmail tidak mengizinkan login dengan password biasa untuk aplikasi pihak ketiga. Kamu harus menggunakan **App Password**.
+
+1. **Aktifkan Verifikasi 2 Langkah**  
+   - Masuk ke akun Google di [Google My Account](https://myaccount.google.com/).
+   - Buka **Keamanan** → **Verifikasi 2 Langkah** → **Aktifkan**.
+   
+2. **Dapatkan App Password**  
+   - Setelah **Verifikasi 2 Langkah** aktif, kembali ke **Keamanan**.
+   - Search **APP PASSWORD** pada kolom pencarian.
+   - Pilih **Buat sandi aplikasi baru**.
+   - Klik **Buat**, lalu **salin password yang diberikan**.
+   - Gunakan password yang anda dapatkan sebagai `EMAIL_PASS` di `.env`.
+
+### 4. Jalankan Server
+```bash
 npm start
 ```
 atau jika menggunakan **nodemon**
-```sh
+```bash
 npm run dev
 ```
 
@@ -204,3 +198,4 @@ Proyek ini menggunakan lisensi **MIT**.
 ---
 
 Jika ada pertanyaan atau kendala, silakan buka **Issue** di GitHub! 🚀
+
